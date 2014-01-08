@@ -82,11 +82,12 @@ Usage:
       websocket_bind_ip=0.0.0.0
 
 
+      # see code/examples/test_websocket.pl
+      #
       # in your private code subscribe to be called on events
       # your function will have one argument the JSON message
       # from the WebSocket client
       WebSocket::subscribe('some_action', \&MyFunction);
-      
       # send a command to all connected websockets 
       WebSocket::SendToAll("some_command");
 
