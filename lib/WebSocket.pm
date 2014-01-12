@@ -62,11 +62,15 @@ License:
 
 
 Install: 
-        On raspbian I had a nightmare getting cpan to work. It must be
-      a debian thing but I needed stuff not available via apt-get. I will
-      try and better document this later but I will have to flatten my Pi
-      a few times to do it right.
+        On raspbian I had a nightmare getting cpan to work because CPAN was eating
+      every bit of memory and swap. I had to adjust the swap size and then things
+      started to work better.
 
+      # adjust swap size I set to 1g for perl. It does a _LOT_ in memory when using cpan
+      sudo vi /etc/dphys-swapfile
+      sudo dphys-swapfile setup
+      sudo dphys-swapfile swapon
+      cpan
       cpan[1]> install Future
       cpan[1]> install Test
       cpan[1]> install IO::Async
@@ -237,7 +241,7 @@ sub SendToAll {
      foreach my $notify (@notifiers) {
        if (ref($notify) eq "IO::Async::Stream") {
          my $sframe = Protocol::WebSocket::Frame->new;
-         $notify->write($sframe->new("UPDATE")->to_bytes);
+         $notify->write($sframe->new($self)->to_bytes);
          $count++;
        }
      }
