@@ -88,9 +88,11 @@ Usage:
 
       # see code/examples/test_websocket.pl
       #
-      # in your private code subscribe to be called on events
-      # your function will have one argument the JSON message
-      # from the WebSocket client
+      # In your code subscribe to a given event to be called when it fires. Your
+      # callback function will take one argument the JSON message from the WebSocket
+      # client. It will be passed in as a reference for 0 copy using foo( \$json )
+      # To access it in the callback deference using $$json. For an example see the
+      # test function above.
       WebSocket::subscribe('some_action', \&MyFunction);
       # send a command to all connected websockets 
       WebSocket::SendToAll("some_command");
